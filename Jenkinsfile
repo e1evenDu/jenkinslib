@@ -16,7 +16,7 @@ pipeline {
                 timeout(time:5, unit:"MINUTES"){   
                     script{ 
                         // 调用类方法
-                        mytools.PrintMes("获取代码")
+                        mytools.PrintMsg("获取代码")
                     }
                 }
             }
