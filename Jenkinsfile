@@ -1,3 +1,5 @@
+#!groovy
+
 // @Library('jenkinslib') _来加载共享库，注意后面符号_用于加载。 
 @Libary('jenkinslib') _
 
