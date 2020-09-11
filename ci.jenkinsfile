@@ -8,7 +8,7 @@ pipeline {
         stage("Build"){ 
             steps {
                 script {
-                    mavenHome = tools "M1"
+                    mavenHome = tool "M1"
                     println("$mavenHome")
                 }
             }
