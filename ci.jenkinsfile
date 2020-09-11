@@ -1,5 +1,6 @@
 #!groovy
 
+"""
 pipeline {
     agent { node {  label "master" }}
 
@@ -13,5 +14,12 @@ pipeline {
                 }
             }
         }
+    }
+}
+"""
+node {
+    stage ("build"){
+        mavenHome = tool 'M1'
+        sh "${mavenHome}/bin/mvn -v"
     }
 }
