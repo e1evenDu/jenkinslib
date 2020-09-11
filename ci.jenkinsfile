@@ -1,8 +1,17 @@
 #!groovy
 
-node {
-    stage ("build"){
-        mavenHome = tool 'M1'
-        sh "${mavenHome}/bin/mvn -v"
+pipeline {
+    agent { node {  label "master" }}
+
+    stages {
+        //下载代码
+        stage("Build"){ 
+            steps {
+                script {
+                    mavenHome = tool "M1"
+                    sh "${mavenHome}/bin/mvn -v"
+                }
+            }
+        }
     }
 }
