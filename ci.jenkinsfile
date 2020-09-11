@@ -1,0 +1,13 @@
+#!groovy
+
+pipeline {
+    agent { node {  label "master" }}
+
+    stages {
+        //下载代码
+        stage("Build"){ 
+            mavenHome = tools "M1"
+            println("$mavenHome")
+        }
+    }
+}
