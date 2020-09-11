@@ -6,8 +6,12 @@ pipeline {
     stages {
         //下载代码
         stage("Build"){ 
-            mavenHome = tools "M1"
-            println("$mavenHome")
+            steps {
+                script {
+                    mavenHome = tools "M1"
+                    println("$mavenHome")
+                }
+            }
         }
     }
 }
