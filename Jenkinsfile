@@ -1,25 +1,49 @@
 #!groovy
 
-// @Library('jenkinslib') _来加载共享库，注意后面符号_用于加载。 
-@Library('jenkinslib') _
+@Library('jenkinslibrary@master') _
 
-// tools.groovy 类的实例化
-def mytools = new org.devops.tools()
+//func from shareibrary
+def build = new org.devops.build()
+def deploy = new org.devops.deploy()
+def tools = new org.devops.tools()
 
+//env
+String buildType = "${env.buildType}"
+String buildShell = "${env.buildShell}"
+String deployHosts = "${env.deployHosts}"
+
+String srcUrl = "${env.srcUrl}"
+String branchName = "${env.branchName}"
+
+//pipeline
 pipeline {
-    agent { node {  label "master" }}
+    agent { node { label 'master' } }
 
     stages {
-        //下载代码
-        stage("GetCode"){ 
-            steps{  
-                timeout(time:5, unit:"MINUTES"){   
-                    script{ 
-                        // 调用类方法
-                        mytools.PrintMsg("获取代码")
-                    }
-                }
+        stage('CheckOut') {
+          steps {
+            script {
+              println("${branchName}")
+
+              tools.PrintMsg('获取代码', 'green')
+              checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]],
+                                          doGenerateSubmoduleConfigurations: false,
+                                          extensions: [],
+                                          submoduleCfg: [],
+                                          userRemoteConfigs: [[credentialsId: 'gitlab-admin-user', url: "${srcUrl}"]]])
             }
+          }
+        }
+        stage('Build') {
+          steps {
+            script {
+              tools.PrintMsg('执行打包', 'green')
+
+              build.Build(buildType, buildShell)
+              //deploy.SaltDeploy("${deployHosts}","test.ping")
+              //deploy.AnsibleDeploy("${deployHosts}","-m ping ")
+            }
+          }
         }
     }
 }
