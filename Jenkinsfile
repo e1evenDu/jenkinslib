@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('jenkinslibrary@master') _
+@Library('jenkinslib') _
 
 //func from shareibrary
 def build = new org.devops.build()
