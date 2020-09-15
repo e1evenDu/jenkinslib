@@ -23,7 +23,10 @@ pipeline {
         stage('CheckOut') {
           steps {
             script {
-              println("${branchName}")
+              if ("${runOpts}" == 'GitlabPush') {
+                  branchName = branch - 'refs/heads/
+                  println("${branchName}")
+              }
 
               tools.PrintMsg('获取代码', 'green')
               checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]],
