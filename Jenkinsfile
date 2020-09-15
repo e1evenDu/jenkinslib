@@ -15,6 +15,13 @@ String deployHosts = "${env.deployHosts}"
 String srcUrl = "${env.srcUrl}"
 String branchName = "${env.branchName}"
 
+if ("${runOpts}" == 'GitlabPush') {
+    branchName = branch - 'refs/heads/'
+    currentBuild.description = "Trigger by ${userName} ${branch}"
+    
+    println("${branchName}")
+}
+
 //pipeline
 pipeline {
     agent { node { label 'master' } }
@@ -23,11 +30,6 @@ pipeline {
         stage('CheckOut') {
           steps {
             script {
-              if ("${runOpts}" == 'GitlabPush') {
-                  branchName = branch - 'refs/heads/'
-                  println("${branchName}")
-              }
-
               tools.PrintMsg('获取代码', 'green')
               checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]],
                                           doGenerateSubmoduleConfigurations: false,
