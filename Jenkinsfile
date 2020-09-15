@@ -24,7 +24,7 @@ pipeline {
           steps {
             script {
               if ("${runOpts}" == 'GitlabPush') {
-                  branchName = branch - 'refs/heads/
+                  branchName = branch - 'refs/heads/'
                   println("${branchName}")
               }
 
