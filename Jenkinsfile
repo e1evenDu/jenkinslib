@@ -20,7 +20,7 @@ if ("${runOpts}" == 'GitlabPush') {
     branchName = branch - 'refs/heads/'
     currentBuild.description = "Trigger by ${userName} ${branch}"
     
-    gitlab.ChangeCommitStatus(projectId, commitSha, 'running'
+    gitlab.ChangeCommitStatus(projectId, commitSha, 'running')
                               
     println("${branchName}")
 }
