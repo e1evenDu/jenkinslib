@@ -7,6 +7,7 @@ def build = new org.devops.build()
 //def deploy = new org.devops.deploy()
 def tools = new org.devops.tools()
 def gitlab = new org.devops.gitlab()
+def toemail = new org.devops.toemail(
 
 //env
 String buildType = "${env.buildType}"
@@ -68,7 +69,7 @@ pipeline {
                 if ("${runOpts}" == 'GitlabPush') {
                     gitlab.ChangeCommitStatus(projectId, commitSha, 'success')
                 }
-                //toemail.Email('流水线成功', userEmail)
+                toemail.Email('流水线成功', userEmail)
             }
         }
         failure {
@@ -77,7 +78,7 @@ pipeline {
                 if ("${runOpts}" == 'GitlabPush') {
                     gitlab.ChangeCommitStatus(projectId, commitSha, 'failed')
                 }
-                //toemail.Email('流水线失败了！', userEmail)
+                toemail.Email('流水线失败了！', userEmail)
             }
         }
 
@@ -87,7 +88,7 @@ pipeline {
                 if ("${runOpts}" == 'GitlabPush') {
                     gitlab.ChangeCommitStatus(projectId, commitSha, 'canceled')
                 }
-                //toemail.Email('流水线被取消了！', userEmail)
+                toemail.Email('流水线被取消了！', userEmail)
             }
         }
     }
