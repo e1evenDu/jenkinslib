@@ -8,6 +8,7 @@ def build = new org.devops.build()
 def tools = new org.devops.tools()
 def gitlab = new org.devops.gitlab()
 def toemail = new org.devops.toemail()
+def sonar = new org.devops.sonarqube()
 
 //env
 String buildType = "${env.buildType}"
@@ -51,6 +52,14 @@ pipeline {
               build.Build(buildType, buildShell)
               //deploy.SaltDeploy("${deployHosts}","test.ping")
               //deploy.AnsibleDeploy("${deployHosts}","-m ping ")
+            }
+          }
+        }
+        stage('QA') {
+          steps {
+            script {
+              tools.PrintMsg('代码扫描', 'green')
+              sonar.SonarScan("${JOB_NAME}", "${JOB_NAME}", "src")
             }
           }
         }
