@@ -16,6 +16,8 @@ def SonarScan(projectName,projectDesc,projectPath){
         -Dsonar.projectName=${projectName} \
         -Dsonar.projectVersion=${sonarDate} \
         -Dsonar.ws.timeout=30 \
+        -Dsonar.login=admin \
+	    -Dsonar.password=admin \
         -Dsonar.projectDescription=${projectDesc} \
         -Dsonar.links.homepage=http://www.baidu.com \
         -Dsonar.sources=${projectPath} \
