@@ -1,8 +1,5 @@
 package org.devops
-
-
-//scan
-//def SonarScan(sonarServer,projectName,projectDesc,projectPath,branchName){
+/*
 def SonarScan(projectName,projectDesc,projectPath){
     def scannerHome = "/usr/local/sonar-scanner-4.4.0.2170-linux/"
     def sonarServer = "http://10.0.0.10:9000"
@@ -26,7 +23,10 @@ def SonarScan(projectName,projectDesc,projectPath){
         -Dsonar.java.test.binaries=target/test-classes \
         -Dsonar.java.surefire.report=target/surefire-reports \
     """
-    /*
+}
+*/
+//def SonarScan(sonarServer,projectName,projectDesc,projectPath,branchName){
+def SonarScan(sonarServer,projectName,projectDesc,projectPath){
     //定义服务器列表
     def servers = ["test":"sonarqube-test","prod":"sonarqube-prod"]
     
@@ -50,10 +50,9 @@ def SonarScan(projectName,projectDesc,projectPath){
             -Dsonar.java.binaries=target/classes \
             -Dsonar.java.test.binaries=target/test-classes \
             -Dsonar.java.surefire.report=target/surefire-reports \
-            -Dsonar.branch.name=${branchName} -X
+            #-Dsonar.branch.name=${branchName} -X
         """
     }
-    */
     
     //def qg = waitForQualityGate()
     //if (qg.status != 'OK') {
