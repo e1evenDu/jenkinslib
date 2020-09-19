@@ -59,7 +59,7 @@ pipeline {
           steps {
             script {
               tools.PrintMsg('代码扫描', 'green')
-              sonar.SonarScan("${JOB_NAME}", "${JOB_NAME}", "src")
+              sonar.SonarScan("test", "${JOB_NAME}", "${JOB_NAME}", "src")
             }
           }
         }
