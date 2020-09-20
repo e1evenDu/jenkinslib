@@ -73,6 +73,13 @@ pipeline {
                  println("${JOB_NAME}---项目已存在！")
               }
                 
+              tools.PrintMsg('配置项目质量规则', 'green')
+              qpName = "${JOB_NAME}".split('-')[0]   //demo-maven-service_PUSH 分割后就是 demo(规则名）
+              sonarapi.ConfigQualityProfiles("${JOB_NAME}", 'java', qpName)
+
+              tools.PrintMsg('配置质量阈', 'green')
+              sonarapi.ConfigQualityGates("${JOB_NAME}", qpName)
+              
               tools.PrintMsg('代码扫描', 'green')
               sonar.SonarScan("test", "${JOB_NAME}", "${JOB_NAME}", "src")
               
