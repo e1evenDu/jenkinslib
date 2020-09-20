@@ -62,7 +62,7 @@ pipeline {
         stage('QA') {
           steps {
             script {
-              tools.PrintMes('搜索项目', 'green')
+              tools.PrintMsg('搜索项目', 'green')
               result = sonarapi.SerarchProject("${JOB_NAME}")
               println(result)
 
