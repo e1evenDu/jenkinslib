@@ -61,9 +61,10 @@ pipeline {
             script {
               tools.PrintMsg('代码扫描', 'green')
               sonar.SonarScan("test", "${JOB_NAME}", "${JOB_NAME}", "src")
-              /*  
+              
               tools.PrintMsg('获取扫描结果', 'green')
               result = sonarapi.GetProjectStatus("${JOB_NAME}")
+              /*  
               println("++++++++++++++++++++++++++++++++")
               println(restult)
               println("++++++++++++++++++++++++++++++++")
