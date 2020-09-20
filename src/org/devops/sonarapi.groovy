@@ -26,8 +26,8 @@ def GetProjectStatus(projectName){
     
     response = readJSON text: """${response.content}"""
     result = response["branches"][0]["status"]["qualityGateStatus"]
-    
-    //println(response)
+    println("*************************************************")
+    println(response)
     
    return result
 }
