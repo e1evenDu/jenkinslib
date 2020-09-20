@@ -61,13 +61,13 @@ pipeline {
             script {
               tools.PrintMsg('代码扫描', 'green')
               sonar.SonarScan("test", "${JOB_NAME}", "${JOB_NAME}", "src")
-                
+              /*  
               tools.PrintMsg('获取扫描结果', 'green')
               result = sonarapi.GetProjectStatus("${JOB_NAME}")
               println("++++++++++++++++++++++++++++++++")
               println(restult)
               println("++++++++++++++++++++++++++++++++")
-              /*
+              
               if (result.toString() == 'ERROR') {
                   toemail.Email('代码质量阈错误！请及时修复！', userEmail)
                   error '代码质量阈错误！请及时修复！'
