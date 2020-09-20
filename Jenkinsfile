@@ -64,15 +64,17 @@ pipeline {
                 
               tools.PrintMsg('获取扫描结果', 'green')
               result = sonarapi.GetProjectStatus("${JOB_NAME}")
-              println("-------------------------------------")
+              println("++++++++++++++++++++++++++++++++")
               println(restult)
-              println("-------------------------------------")
+              println("++++++++++++++++++++++++++++++++")
+              /*
               if (result.toString() == 'ERROR') {
                   toemail.Email('代码质量阈错误！请及时修复！', userEmail)
                   error '代码质量阈错误！请及时修复！'
               } else {
                   println(result)
               }
+              */
             }
           }
         }
