@@ -32,6 +32,7 @@ def GetProjectStatus(projectName){
    return result
 }
 
+/*
 //获取Sonar质量阈状态(多分支)
 def GetProjectStatus(projectName,branchName){
     apiUrl = "qualitygates/project_status?projectKey=${projectName}&branch=${branchName}"
@@ -44,6 +45,7 @@ def GetProjectStatus(projectName,branchName){
     
    return result
 }
+*/
 
 //搜索Sonar项目
 def SerarchProject(projectName){
