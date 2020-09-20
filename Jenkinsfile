@@ -66,7 +66,7 @@ pipeline {
               result = sonarapi.GetProjectStatus("${JOB_NAME}")
               
               println("++++++++++++++++++++++++++++++++")
-              println(restult)
+              println(result)
               println("++++++++++++++++++++++++++++++++")
               /*  
               if (result.toString() == 'ERROR') {
