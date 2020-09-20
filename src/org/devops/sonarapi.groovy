@@ -28,8 +28,9 @@ def GetProjectStatus(projectName){
     result = response["branches"][0]["status"]["qualityGateStatus"]
     println("*************************************************")
     println(response)
-    
-   return result
+    println("++++++++++++++++++++++++++++++++++++++++++++++++++")
+    println(result)
+    return result
 }
 
 /*
