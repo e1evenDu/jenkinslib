@@ -26,6 +26,8 @@ if ("${runOpts}" == 'GitlabPush') {
     gitlab.ChangeCommitStatus(projectId, commitSha, 'running')
                               
     println("${branchName}")
+} else {
+    userEmail = 'jeffduuu@gmail.com'  // 手动跑 pipeline 时写死，即不通过 gitlab 调用
 }
 
 //pipeline
@@ -59,6 +61,17 @@ pipeline {
         stage('QA') {
           steps {
             script {
+              tools.PrintMes('搜索项目', 'green')
+              result = sonarapi.SerarchProject("${JOB_NAME}")
+              println(result)
+
+              if (result == 'false') {
+                 println("${JOB_NAME}---项目不存在,准备创建项目---> ${JOB_NAME}！")
+                 sonarapi.CreateProject("${JOB_NAME}")
+              } else {
+                 println("${JOB_NAME}---项目已存在！")
+              }
+                
               tools.PrintMsg('代码扫描', 'green')
               sonar.SonarScan("test", "${JOB_NAME}", "${JOB_NAME}", "src")
               
