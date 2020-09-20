@@ -11,6 +11,7 @@ def toemail = new org.devops.toemail()
 def sonar = new org.devops.sonarqube()
 def sonarapi = new org.devops.sonarapi()
 
+def runOpts // 用于手动跑项目，不通过 gitlab 触发
 //env
 String buildType = "${env.buildType}"
 String buildShell = "${env.buildShell}"
@@ -27,7 +28,7 @@ if ("${runOpts}" == 'GitlabPush') {
                               
     println("${branchName}")
 } else {
-    userEmail = 'jeffduuu@gmail.com'  // 手动跑 pipeline 时写死，即不通过 gitlab 调用
+    userEmail = 'jeffduuu@gmail.com' // 用于手动跑项目，不通过 gitlab 触发
 }
 
 //pipeline
