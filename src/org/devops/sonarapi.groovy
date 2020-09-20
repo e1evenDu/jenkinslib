@@ -2,11 +2,11 @@ package org.devops
 
 
 //封装HTTP
-
 def HttpReq(reqType,reqUrl,reqBody){
+    // 接口地址：http://10.0.0.10:9000/api/project_branches/list?project=demo-maven-service_PUSH 
     def sonarServer = "http://10.0.0.10:9000/api"
    
-    result = httpRequest authentication: 'sonar-admin-user',
+    result = httpRequest authentication: 'sonar-admin-userpwd',
             httpMode: reqType, 
             contentType: "APPLICATION_JSON",
             consoleLogResponseBody: true,
