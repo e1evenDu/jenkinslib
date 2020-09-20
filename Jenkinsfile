@@ -66,7 +66,7 @@ pipeline {
               result = sonarapi.GetProjectStatus("${JOB_NAME}")
               println(restult)
               if (result.toString() == 'ERROR') {
-                  toemail.Email('代码质量阈错误！请及时修复！', userEmail)
+                  //toemail.Email('代码质量阈错误！请及时修复！', userEmail)
                   error '代码质量阈错误！请及时修复！'
               } else {
                   println(result)
