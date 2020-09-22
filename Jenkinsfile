@@ -75,8 +75,8 @@ pipeline {
                   -Dpackaging=${pomPackaging} -DrepositoryId=maven-hostd \
                   -Durl=http://10.0.0.10:8081/repository/maven-hostd 
                   """
-              /*
-              //use nexus plugin
+              */
+              // use nexus plugin
               def repoName = "maven-hostd"
               def filePath = "target/${jarName}"
               nexusArtifactUploader artifacts: [[artifactId: "${pomArtifact}", 
