@@ -46,3 +46,14 @@ def MavenUpload(){
                                 -Durl=http://10.0.0.10:808/repository/maven-hostd 
         """
 }
+
+def main(uploadType){
+    GetGav()
+    if ("${uploadType}" == "maven"){
+        MavenUpload()
+    } else if ("${uploadType}" == "nexus") {
+        env.repoName = "maven-hostd"
+        env.filePath = "target/${jarName}"
+        NexusUpload()
+    }
+}
