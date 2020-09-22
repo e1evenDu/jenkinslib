@@ -27,7 +27,7 @@ def NexusUpload(){
                                         type: "${pomPackaging}"]], 
                             credentialsId: 'nexus-admin-userpwd', 
                             groupId: "${pomGroupId}", 
-                            nexusUrl: '10.0.0.10:808', 
+                            nexusUrl: '10.0.0.10:8081', 
                             nexusVersion: 'nexus3', 
                             protocol: 'http', 
                             repository: "${repoName}", 
@@ -43,7 +43,7 @@ def MavenUpload(){
                                 -Dfile=${jarName} -DgroupId=${pomGroupId} \
                                 -DartifactId=${pomArtifact} -Dversion=${pomVersion}  \
                                 -Dpackaging=${pomPackaging} -DrepositoryId=maven-hostd \
-                                -Durl=http://10.0.0.10:808/repository/maven-hostd 
+                                -Durl=http://10.0.0.10:8081/repository/maven-hostd 
         """
 }
 
