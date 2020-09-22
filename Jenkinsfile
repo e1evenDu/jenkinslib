@@ -10,6 +10,7 @@ def gitlab = new org.devops.gitlab()
 def toemail = new org.devops.toemail()
 def sonar = new org.devops.sonarqube()
 def sonarapi = new org.devops.sonarapi()
+def nexus = new org.devops.nexus()
 
 def runOpts // 用于手动跑项目，不通过 gitlab 触发
 //env
@@ -55,41 +56,8 @@ pipeline {
               build.Build(buildType, buildShell)
                 
               // 上传制品
-              def jarName = sh returnStdout: true, script: "cd target;ls *.jar"
-              jarName = jarName - "\n"
-
-              def pom = readMavenPom file: 'pom.xml'
-              pomVersion = "${pom.version}"
-              pomArtifact = "${pom.artifactId}"
-              pomPackaging = "${pom.packaging}"
-              pomGroupId = "${pom.groupId}"
-
-              println("${pomGroupId}-${pomArtifact}-${pomVersion}-${pomPackaging}")
-              /* mvn 命令行方式上传制品
-              def mvnHome = tool "M2"
-              sh  """ 
-                  cd target/
-                  ${mvnHome}/bin/mvn deploy:deploy-file -Dmaven.test.skip=true  \
-                  -Dfile=${jarName} -DgroupId=${pomGroupId} \
-                  -DartifactId=${pomArtifact} -Dversion=${pomVersion}  \
-                  -Dpackaging=${pomPackaging} -DrepositoryId=maven-hostd \
-                  -Durl=http://10.0.0.10:8081/repository/maven-hostd 
-                  """
-              */
-              // use nexus plugin
-              def repoName = "maven-hostd"
-              def filePath = "target/${jarName}"
-              nexusArtifactUploader artifacts: [[artifactId: "${pomArtifact}", 
-                                                 classifier: '', 
-                                                 file: "${filePath}", 
-                                                 type: "${pomPackaging}"]], 
-                                    credentialsId: 'nexus-admin-userpwd', 
-                                    groupId: "${pomGroupId}", 
-                                    nexusUrl: '10.0.0.10:8081', 
-                                    nexusVersion: 'nexus3', 
-                                    protocol: 'http', 
-                                    repository: "${repoName}", 
-                                    version: "${pomVersion}"
+              nexus.main("nexus")
+              
               //deploy.SaltDeploy("${deployHosts}","test.ping")
               //deploy.AnsibleDeploy("${deployHosts}","-m ping ")
             }
