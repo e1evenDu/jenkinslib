@@ -52,13 +52,36 @@ pipeline {
           steps {
             script {
               tools.PrintMsg('执行打包', 'green')
-
               build.Build(buildType, buildShell)
+                
+              // 上传制品
+              def jarName = sh returnStdout: true, script: "cd target;ls *.jar"
+              jarName = jarName - "\n"
+
+              def pom = readMavenPom file: 'pom.xml'
+              pomVersion = "${pom.version}"
+              pomArtifact = "${pom.artifactId}"
+              pomPackaging = "${pom.packaging}"
+              pomGroupId = "${pom.groupId}"
+
+              println("${pomGroupId}-${pomArtifact}-${pomVersion}-${pomPackaging}")
+
+              def mvnHome = tool "M2"
+              sh  """ 
+                  cd target/
+                  ${mvnHome}/bin/mvn deploy:deploy-file -Dmaven.test.skip=true  \
+                  -Dfile=${jarName} -DgroupId=${pomGroupId} \
+                  -DartifactId=${pomArtifact} -Dversion=${pomVersion}  \
+                  -Dpackaging=${pomPackaging} -DrepositoryId=maven-hostd \
+                  -Durl=http://10.0.0.10:8081/repository/maven-hostd 
+                  """
+                
               //deploy.SaltDeploy("${deployHosts}","test.ping")
               //deploy.AnsibleDeploy("${deployHosts}","-m ping ")
             }
           }
         }
+        /*
         stage('QA') {
           steps {
             script {
@@ -72,7 +95,7 @@ pipeline {
               } else {
                  println("${JOB_NAME}---项目已存在！")
               }
-                
+              
               tools.PrintMsg('配置项目质量规则', 'green')
               qpName = "${JOB_NAME}".split('-')[0]   //demo-maven-service_PUSH 分割后就是 demo(规则名）
               sonarapi.ConfigQualityProfiles("${JOB_NAME}", 'java', qpName)
@@ -98,6 +121,7 @@ pipeline {
             }
           }
         }
+        */
     }
     
     post {
