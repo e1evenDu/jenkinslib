@@ -65,7 +65,7 @@ pipeline {
               pomGroupId = "${pom.groupId}"
 
               println("${pomGroupId}-${pomArtifact}-${pomVersion}-${pomPackaging}")
-
+              /* mvn 命令行方式上传制品
               def mvnHome = tool "M2"
               sh  """ 
                   cd target/
@@ -75,7 +75,21 @@ pipeline {
                   -Dpackaging=${pomPackaging} -DrepositoryId=maven-hostd \
                   -Durl=http://10.0.0.10:8081/repository/maven-hostd 
                   """
-                
+              /*
+              //use nexus plugin
+              def repoName = "maven-hostd"
+              def filePath = "target/${jarName}"
+              nexusArtifactUploader artifacts: [[artifactId: "${pomArtifact}", 
+                                                 classifier: '', 
+                                                 file: "${filePath}", 
+                                                 type: "${pomPackaging}"]], 
+                                    credentialsId: 'nexus-admin-userpwd', 
+                                    groupId: "${pomGroupId}", 
+                                    nexusUrl: '10.0.0.10:8081', 
+                                    nexusVersion: 'nexus3', 
+                                    protocol: 'http', 
+                                    repository: "${repoName}", 
+                                    version: "${pomVersion}"
               //deploy.SaltDeploy("${deployHosts}","test.ping")
               //deploy.AnsibleDeploy("${deployHosts}","-m ping ")
             }
