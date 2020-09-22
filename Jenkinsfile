@@ -56,7 +56,7 @@ pipeline {
               build.Build(buildType, buildShell)
                 
               // 上传制品
-              nexus.main("nexus")
+              nexus.main("maven")
               
               //deploy.SaltDeploy("${deployHosts}","test.ping")
               //deploy.AnsibleDeploy("${deployHosts}","-m ping ")
