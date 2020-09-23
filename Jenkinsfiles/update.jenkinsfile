@@ -3,11 +3,11 @@
 @Library("jenkinslib@master") _
 
 def nexus = new org.devops.nexus()
-def nexusapi = new org.devops.nexusapi()
+//def nexusapi = new org.devops.nexusapi()
 
 String updateType = "${env.updateType}"
 String artifactUrl = "${env.artifactUrl}"
-String pkgVersion = "${env.pkgVersion}"
+//String pkgVersion = "${env.pkgVersion}"
 
 
 pipeline{
@@ -18,10 +18,10 @@ pipeline{
         stage("UpdateArtifact"){
             steps{
                 script{
-                   //nexus.ArtifactUpdate(updateType,artifactUrl)
+                   nexus.ArtifactUpdate(updateType,artifactUrl)
                    
                    //nexusapi.GetRepoComponents("maven-hostd")
-                   nexusapi.GetSingleComponents("maven-hostd","com.mycompany.app","my-app",pkgVersion)
+                   //nexusapi.GetSingleComponents("maven-hostd","com.mycompany.app","my-app",pkgVersion)
                 
                 }
             
