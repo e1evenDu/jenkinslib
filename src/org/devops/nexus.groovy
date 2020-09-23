@@ -60,6 +60,7 @@ def ArtifactUpdate(updateType,artifactUrl){
         //获取artifactID 
         // http://10.0.0.10:8081/repository/maven-hostd/com/mycompany/app/my-app/1.1-SNAPSHOT/my-app-1.1-20200922.135829-9.jar
         artifactUrl = artifactUrl -  "http://10.0.0.10:8081/repository/maven-hostd/"
+        // [com, mycompany, app, my-app, 1.1-SNAPSHOT, my-app-1.1-20200922.135829-9.jar]
         artifactUrl = artifactUrl.split("/").toList()
         
         println(artifactUrl.size())
