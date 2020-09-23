@@ -57,6 +57,9 @@ pipeline {
                 
               // 上传制品
               nexus.main("maven")
+                
+              // 发布制品
+              sh " wget ${artifactUrl} && ls "
               
               //deploy.SaltDeploy("${deployHosts}","test.ping")
               //deploy.AnsibleDeploy("${deployHosts}","-m ping ")
