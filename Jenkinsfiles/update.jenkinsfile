@@ -11,7 +11,7 @@ String artifactUrl = "${env.artifactUrl}"
 
 
 pipeline{
-    agent{ node { label "build"}}
+    agent{ node { label "master"}}
     
     stages{
     
