@@ -20,6 +20,7 @@ String deployHosts = "${env.deployHosts}"
 
 String srcUrl = "${env.srcUrl}"
 String branchName = "${env.branchName}"
+String artifactUrl = "${env.artifactUrl}"
 
 if ("${runOpts}" == 'GitlabPush') {
     branchName = branch - 'refs/heads/'
