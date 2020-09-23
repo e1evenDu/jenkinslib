@@ -1,6 +1,6 @@
 #!groovy
 
-@Library("jenkinslibrary@master") _
+@Library("jenkinslib@master") _
 
 def nexus = new org.devops.nexus()
 def nexusapi = new org.devops.nexusapi()
@@ -29,6 +29,5 @@ pipeline{
         
         }
     }
-
 
 }
