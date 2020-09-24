@@ -3,9 +3,9 @@ package org.devops
 
 //封装HTTP
 def HttpReq(reqType,reqUrl,reqBody){
-    def sonarServer = "http://192.168.1.200:30083/service/rest"
+    def sonarServer = "http://10.0.0.10:8081/service/rest"
    
-    result = httpRequest authentication: 'nexus-admin-user',
+    result = httpRequest authentication: 'nexus-admin-userpwd',
             httpMode: reqType, 
             contentType: "APPLICATION_JSON",
             consoleLogResponseBody: true,
